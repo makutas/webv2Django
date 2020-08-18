@@ -1,6 +1,12 @@
 from django.db import models
 
 
+class Ingredient(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    ingredient_type = models.CharField(max_length=50)
+
+
 class Recipe(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE(), null=True, blank=True)
     title = models.CharField(max_length=100)
