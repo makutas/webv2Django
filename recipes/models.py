@@ -6,6 +6,12 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=50)
     ingredient_type = models.CharField(max_length=50)
 
+    class Meta:
+        verbose_name_plural = 'ingredients'
+
+    def __str__(self):
+        return f'{self.name}, {self.ingredient_type}'
+
 
 class Recipe(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE(), null=True, blank=True)
