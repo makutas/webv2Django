@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 class Recipe(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE(), null=True, blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     created_date = models.DateTimeField(auto_now_add=True)
