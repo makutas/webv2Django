@@ -9,7 +9,7 @@ class Recipe(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.title}, posted by {self.author}'
+        return f'{self.title} (posted by {self.author})'
 
 
 class Ingredient(models.Model):

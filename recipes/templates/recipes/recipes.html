@@ -1,0 +1,15 @@
+{% extends "recipes/base.html" %}
+
+{% block content %}
+
+ <p>Recipes:</p>
+
+ <ul>
+     {% for recipe in recipes %}
+      <li>{{ recipe }}</li>
+     {% empty %}
+      <li>No recipes have been added yet.</li>
+     {% endfor %}
+ </ul>
+
+{% endblock content %}
