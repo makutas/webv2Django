@@ -13,3 +13,10 @@ def recipes(request):
     context = {'recipes':recipes}
     return render(request, 'recipes/recipes.html', context)
 
+
+def recipe(request, recipe_id):
+    """Show a single recipe and all its ingredients"""
+    recipe = Recipe.objects.get(id=recipe_id)
+    ingredients = recipe.ingredient_set.order_by('ingredient_type')
+    context = {'recipe': recipe, 'ingredients': ingredients}
+    return render(request, 'recipes/recipe.html', context)
