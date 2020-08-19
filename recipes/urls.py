@@ -1,3 +1,5 @@
+"""Defines URL patterns for recipes"""
+
 from django.urls import path
 from . import views
 
