@@ -22,3 +22,20 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return f'{self.name}, {self.ingredient_type}'
+
+
+class Quantity(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    ml_oz = models.IntegerField(max_length=5, null=True, blank=True)
+    pieces = models.IntegerField(max_length=5, null=True, blank=True)
+    dashes = models.IntegerField(max_length=5, null=True, blank=True)
+    shake = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name_plural = 'quantities'
+
+    def __str__(self):
+        return f'{self.ml_oz}, {self.pieces}, {self.dashes}, {self.shake}'
+
+
