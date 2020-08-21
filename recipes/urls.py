@@ -15,4 +15,6 @@ urlpatterns = [
     path('new_recipe/', views.new_recipe, name='new_recipe'),
     # PAGE FOR ADDING AN INGREDIENT
     path('new_ingredient/<int:recipe_id>/', views.new_ingredient, name='new_ingredient'),
+    # PAGE FOR EDITING INGREDIENTS
+    path('edit_ingredient/<int:ingredient_id>/', views.edit_ingredient, name='edit_ingredient'),
 ]

@@ -1,0 +1,14 @@
+{% extends "recipes/base.html" %}
+
+{% block content %}
+
+ <p><a href="{% url 'recipes:recipe' recipe.id %}">{{ recipe }}</a></p>
+
+ <p>Edit ingredient:</p>
+ <form action="{% url 'recipes:edit_ingredient' ingredient.id %}" method="POST">
+     {% csrf_token %}
+     {{ form.as_p }}
+     <button name="Submit">Save changes</button>
+ </form>
+
+{% endblock content %}
