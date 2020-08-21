@@ -5,6 +5,9 @@
  <p>Recipe: {{ recipe }}</p>
 
  <p>Ingredients:</p>
+ <p>
+  <a href="{% url 'recipes:new_ingredient' recipe.id %}">Add new ingredient</a>
+ </p>
   <ul>
    {% for ingredient in ingredients %}
     <li>

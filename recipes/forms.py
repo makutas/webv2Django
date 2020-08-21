@@ -7,3 +7,10 @@ class RecipeForm(forms.ModelForm):
         model = Recipe
         fields = ['title', 'description']
         labels = {'title': 'Title:', 'description': 'Description'}
+
+
+class IngredientForm(forms.ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = ['name', 'ingredient_type']
+        labels = {'name': 'Ingredient:', 'Type': 'ingredient_type'}
