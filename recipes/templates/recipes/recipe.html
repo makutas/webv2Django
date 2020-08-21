@@ -5,13 +5,13 @@
  <p>Recipe: {{ recipe }}</p>
 
  <p>Ingredients:</p>
- <ul>
-{% for ingredient, quantity in ingredients, quantities %}
- <li>
-  <p>{{ ingredient.created_date|date:'M d, Y H:i' }}</p>
-  <p>{{ ingredient.name }} | {{ ingredient.ingredient_type }}</p>
- </li>
-{% endfor %}
- </ul>
+  <ul>
+   {% for ingredient in ingredients %}
+    <li>
+     <p>{{ ingredient.created_date|date:'M d, Y H:i' }}</p>
+     <p>{{ ingredient.name }} | {{ ingredient.ingredient_type }}</p>
+    </li>
+   {% endfor %}
+  </ul>
 
 {% endblock content %}
