@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Recipe
+from .models import Recipe, Ingredient
 from .forms import RecipeForm, IngredientForm
 
 
@@ -58,3 +58,22 @@ def new_ingredient(request, recipe_id):
     """Blank or invalid form"""
     context = {'recipe': recipe, 'form': form}
     return render(request, 'recipes/new_ingredient.html', context)
+
+
+def edit_ingredient(request, ingredient_id):
+    """Edit an existing ingredient"""
+    ingredient = Ingredient.objects.get(id=ingredient_id)
+    recipe = ingredient.recipe
+
+    if request.method != 'POST':
+        """Initial request; Pre-fill form with the current entry so the user can edit it"""
+        form = IngredientForm(instance=ingredient)
+    else:
+        """POST data submitted; process data"""
+        form = IngredientForm(instance=ingredient, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes:recipe', recipe_id=recipe.id)
+
+    context = {'ingredient': ingredient, 'recipe': recipe, 'form': form}
+    return render(request, 'recipes/edit_ingredient.html', context)

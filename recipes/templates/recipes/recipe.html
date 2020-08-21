@@ -13,6 +13,9 @@
     <li>
      <p>{{ ingredient.created_date|date:'M d, Y H:i' }}</p>
      <p>{{ ingredient.name }} | {{ ingredient.ingredient_type }}</p>
+     <p>
+      <a href="{% url 'recipes:edit_ingredient' ingredient.id %}">Edit ingredient</a>
+     </p>
     </li>
    {% endfor %}
   </ul>
