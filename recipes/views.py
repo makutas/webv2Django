@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Recipe
+from .forms import RecipeForm
 
 
 def index(request):
@@ -21,3 +22,19 @@ def recipe(request, recipe_id):
     quantities = recipe.quantity_set.all()
     context = {'recipe': recipe, 'ingredients': ingredients, 'quantity': quantities}
     return render(request, 'recipes/recipe.html', context)
+
+
+def new_recipe(request):
+    """Add a new recipe"""
+    if request.method != 'POST':
+        """Return blank form since no data is submitted - 'GET' method"""
+        form = RecipeForm()
+    else:
+        """Process data since 'POST' method"""
+        form = RecipeForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes:recipes')
+    """Blank or invalid form"""
+    context = {'form': form}
+    return render(request, 'recipes/new_recipe.html', context)

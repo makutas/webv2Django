@@ -11,4 +11,6 @@ urlpatterns = [
     path('recipes/', views.recipes, name='recipes'),
     # DETAIL PAGE FOR A SINGLE RECIPE
     path('recipes/<int:recipe_id>', views.recipe, name='recipe'),
+    # PAGE FOR ADDING A NEW RECIPE
+    path('new_recipe/', views.new_recipe, name='new_recipe'),
 ]
