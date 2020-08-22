@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Recipe, Ingredient
-from .forms import RecipeForm, IngredientForm
+from django.urls import reverse
+from .models import Recipe, Ingredient, Quantity
+from .forms import RecipeForm, IngredientForm, QuantityForm
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -34,9 +36,9 @@ def new_recipe(request):
         form = RecipeForm(data=request.POST)
         if form.is_valid():
             form.save()
-            new_recipe = Recipe.objects.latest('id')
-            context = {'recipe': new_recipe, 'form': form}
-            return redirect('new_ingredient', context)
+            new_recipe = Recipe.objects.last().id
+            redirect_url = f'http://127.0.0.1:8000/new_ingredient/{new_recipe}'
+            return redirect(redirect_url)
     """Blank or invalid form"""
     context = {'form': form}
     return render(request, 'recipes/new_recipe.html', context)
@@ -56,7 +58,10 @@ def new_ingredient(request, recipe_id):
             new_ingredient_form = form.save(commit=False)
             new_ingredient_form.recipe = recipe
             new_ingredient_form.save()
-            return redirect('recipes:recipe', recipe_id=recipe_id)
+            new_recipe = Recipe.objects.last().id
+            new_ingredient = Ingredient.objects.last().id
+            redirect_url = f'http://127.0.0.1:8000/recipes/{new_recipe}/{new_ingredient}/add_quantity'
+            return redirect(redirect_url)
     """Blank or invalid form"""
     context = {'recipe': recipe, 'form': form}
     return render(request, 'recipes/new_ingredient.html', context)
@@ -81,3 +86,23 @@ def edit_ingredient(request, ingredient_id):
     return render(request, 'recipes/edit_ingredient.html', context)
 
 
+def quantity(request, recipe_id, ingredient_id):
+    """Add quantity for particular recipe and ingredient"""
+    recipe = Recipe.objects.get(id=recipe_id)
+    ingredient = Ingredient.objects.get(id=ingredient_id)
+
+    if request.method != 'POST':
+        """Return blank form since no data is submitted - 'GET' method"""
+        form = QuantityForm()
+    else:
+        """Process data since 'POST' method"""
+        form = QuantityForm(data=request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.recipe = recipe
+            form.ingredient = ingredient
+            form.save()
+            return redirect('recipes:recipe', recipe_id=recipe_id, ingredient_id=ingredient_id)
+    """Blank or invalid form"""
+    context = {'recipe': recipe, 'ingredient': ingredient, 'form': form}
+    return render(request, 'recipes/add_quantity.html', context)
