@@ -34,7 +34,9 @@ def new_recipe(request):
         form = RecipeForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('recipes:recipes')
+            new_recipe = Recipe.objects.latest('id')
+            context = {'recipe': new_recipe, 'form': form}
+            return redirect('new_ingredient', context)
     """Blank or invalid form"""
     context = {'form': form}
     return render(request, 'recipes/new_recipe.html', context)
@@ -51,9 +53,9 @@ def new_ingredient(request, recipe_id):
         """Process data since 'POST' method"""
         form = IngredientForm(data=request.POST)
         if form.is_valid():
-            new_ingredient = form.save(commit=False)
-            new_ingredient.recipe = recipe
-            new_ingredient.save()
+            new_ingredient_form = form.save(commit=False)
+            new_ingredient_form.recipe = recipe
+            new_ingredient_form.save()
             return redirect('recipes:recipe', recipe_id=recipe_id)
     """Blank or invalid form"""
     context = {'recipe': recipe, 'form': form}
@@ -77,3 +79,5 @@ def edit_ingredient(request, ingredient_id):
 
     context = {'ingredient': ingredient, 'recipe': recipe, 'form': form}
     return render(request, 'recipes/edit_ingredient.html', context)
+
+
