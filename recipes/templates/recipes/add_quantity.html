@@ -2,10 +2,10 @@
 
 {% block content %}
 
- <p><a href="{% url 'recipes:recipe' recipe.id% }">{{ recipe }}</a></p>
+ <p><a href="{% url 'recipes:recipe' recipe.id %}">{{ recipe }}</a></p>
 
  <p>Add quantity - ml/oz:</p>
- <form action="{% url 'recipes:quantity' recipe.id ingredient.id %}" method="POST">
+ <form action="{% url 'recipes:add_quantity' recipe.id ingredient.id %}" method="POST">
      {% csrf_token %}
      {{ form.as_p }}
      <button name="Submit">Add quantity</button>

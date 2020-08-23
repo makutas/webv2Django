@@ -102,7 +102,7 @@ def quantity(request, recipe_id, ingredient_id):
             form.recipe = recipe
             form.ingredient = ingredient
             form.save()
-            return redirect('recipes:recipe', recipe_id=recipe_id, ingredient_id=ingredient_id)
+            return redirect('recipes:recipe', recipe_id=recipe_id)
     """Blank or invalid form"""
     context = {'recipe': recipe, 'ingredient': ingredient, 'form': form}
     return render(request, 'recipes/add_quantity.html', context)
