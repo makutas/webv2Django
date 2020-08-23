@@ -106,3 +106,22 @@ def quantity(request, recipe_id, ingredient_id):
     """Blank or invalid form"""
     context = {'recipe': recipe, 'ingredient': ingredient, 'form': form}
     return render(request, 'recipes/add_quantity.html', context)
+
+
+def edit_quantity(request, recipe_id, ingredient_id):
+    """Edit an existing ingredient"""
+    recipe = Recipe.objects.get(id=recipe_id)
+    ingredient = Ingredient.objects.get(id=ingredient_id)
+
+    if request.method != 'POST':
+        """Initial request; Pre-fill form with the current entry so the user can edit it"""
+        form = QuantityForm(instance=quantity)
+    else:
+        """POST data submitted; process data"""
+        form = QuantityForm(instance=quantity, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes:recipe', recipe_id=recipe.id)
+
+    context = {'recipe': recipe, 'ingredient': ingredient, 'form': form}
+    return render(request, 'recipes/edit_quantity.html', context)
