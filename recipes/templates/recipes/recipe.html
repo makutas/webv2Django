@@ -9,16 +9,14 @@
   <a href="{% url 'recipes:new_ingredient' recipe.id %}">Add new ingredient</a>
  </p>
   <ul>
-   {% for ingredient in ingredients %}
+   {% for i, q in zipped %}
     <li>
-     <p>{{ ingredient.created_date|date:'M d, Y H:i' }}</p>
-     <p>{{ ingredient.name }} | {{ ingredient.ingredient_type }}</p>
+     <p>{{ i }} | {{ q }}</p>
      <p>
-      <a href="{% url 'recipes:edit_ingredient' ingredient.id %}">Edit ingredient</a>
+      <a href="{% url 'recipes:edit_ingredient' ingredient.id %}">Edit ingredient</a><br>
       <a href="{% url 'recipes:edit_quantity' recipe.id ingredient.id %}">Edit quantity</a>
      </p>
     </li>
    {% endfor %}
   </ul>
-
 {% endblock content %}
