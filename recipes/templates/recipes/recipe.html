@@ -5,18 +5,19 @@
  <p>Recipe: {{ recipe }}</p>
 
  <p>Ingredients:</p>
- <p>
-  <a href="{% url 'recipes:new_ingredient' recipe.id %}">Add new ingredient</a>
- </p>
   <ul>
-   {% for i, q in zipped %}
+   {% for ingredient in ingredients %}
     <li>
-     <p>{{ i }} | {{ q }}</p>
-     <p>
-      <a href="{% url 'recipes:edit_ingredient' ingredient.id %}">Edit ingredient</a><br>
-      <a href="{% url 'recipes:edit_quantity' recipe.id ingredient.id %}">Edit quantity</a>
-     </p>
+     {{ ingredient }}
+      <p>
+       <a href="{% url 'recipes:edit_ingredient' ingredient.id %}">Edit ingredient</a><br>
+       <a href="{% url 'recipes:edit_quantity' recipe.id ingredient.id %}">Edit quantity</a>
+      </p>
     </li>
    {% endfor %}
   </ul>
+ <p>
+  <a href="{% url 'recipes:new_ingredient' recipe.id %}">Add new ingredient</a>
+ </p>
+
 {% endblock content %}

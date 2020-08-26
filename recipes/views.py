@@ -23,9 +23,13 @@ def recipe(request, recipe_id):
     ingredients = recipe.ingredient_set.order_by('ingredient_type')
     quantities = recipe.quantity_set.all()
     ing_id = recipe.ingredient_set.values_list('id', flat=True)
-    ingredients_with_id = zip(recipe.ingredient_set.all(), ing_id)
-    zipped = zip(ingredients_with_id, recipe.quantity_set.all())
-    context = {'recipe': recipe, 'ingredients': ingredients, 'quantity': quantities, 'zipped': zipped}
+    ingredients_with_id = zip(ingredients, ing_id)
+    zipped = zip(ingredients_with_id, quantities)
+    for i, q in zipped:
+        print(i, q)
+        for item in i:
+            print(item)
+    context = {'recipe': recipe, 'ingredients': ingredients, 'ing_id': ing_id, 'quantity': quantities, 'zipped': zipped}
     return render(request, 'recipes/recipe.html', context)
 
 
