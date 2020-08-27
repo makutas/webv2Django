@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .models import Recipe, Ingredient, Quantity
 from .forms import RecipeForm, IngredientForm, QuantityForm
-from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -33,6 +32,7 @@ def recipe(request, recipe_id):
     return render(request, 'recipes/recipe.html', context)
 
 
+@login_required
 def new_recipe(request):
     """Add a new recipe"""
     if request.method != 'POST':
@@ -51,6 +51,7 @@ def new_recipe(request):
     return render(request, 'recipes/new_recipe.html', context)
 
 
+@login_required
 def new_ingredient(request, recipe_id):
     """Add a new ingredient for particular recipe"""
     recipe = Recipe.objects.get(id=recipe_id)
@@ -74,6 +75,7 @@ def new_ingredient(request, recipe_id):
     return render(request, 'recipes/new_ingredient.html', context)
 
 
+@login_required
 def edit_ingredient(request, ingredient_id):
     """Edit an existing ingredient"""
     ingredient = Ingredient.objects.get(id=ingredient_id)
@@ -93,6 +95,7 @@ def edit_ingredient(request, ingredient_id):
     return render(request, 'recipes/edit_ingredient.html', context)
 
 
+@login_required
 def quantity(request, recipe_id, ingredient_id):
     """Add quantity for particular recipe and ingredient"""
     recipe = Recipe.objects.get(id=recipe_id)
@@ -115,6 +118,7 @@ def quantity(request, recipe_id, ingredient_id):
     return render(request, 'recipes/add_quantity.html', context)
 
 
+@login_required
 def edit_quantity(request, recipe_id, ingredient_id):
     """Edit an existing ingredient"""
     recipe = Recipe.objects.get(id=recipe_id)
