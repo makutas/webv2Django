@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Recipe, Ingredient, Quantity
 from .forms import RecipeForm, IngredientForm, QuantityForm
+from django.http import Http404
 
 
 def index(request):
@@ -80,6 +81,8 @@ def edit_ingredient(request, ingredient_id):
     """Edit an existing ingredient"""
     ingredient = Ingredient.objects.get(id=ingredient_id)
     recipe = ingredient.recipe
+    if recipe.author != request.user:
+        raise Http404
 
     if request.method != 'POST':
         """Initial request; Pre-fill form with the current entry so the user can edit it"""
@@ -100,6 +103,8 @@ def quantity(request, recipe_id, ingredient_id):
     """Add quantity for particular recipe and ingredient"""
     recipe = Recipe.objects.get(id=recipe_id)
     ingredient = Ingredient.objects.get(id=ingredient_id)
+    if recipe.author != request.user:
+        raise Http404
 
     if request.method != 'POST':
         """Return blank form since no data is submitted - 'GET' method"""
@@ -123,6 +128,8 @@ def edit_quantity(request, recipe_id, ingredient_id):
     """Edit an existing ingredient"""
     recipe = Recipe.objects.get(id=recipe_id)
     ingredient = Ingredient.objects.get(id=ingredient_id)
+    if recipe.author != request.user:
+        raise Http404
 
     if request.method != 'POST':
         """Initial request; Pre-fill form with the current entry so the user can edit it"""
