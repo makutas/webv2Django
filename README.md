@@ -14,7 +14,7 @@ You can simply fork and use website without anything but<br/>
 If using PyCharm, create new project,<br/>
 Clone Git<br/>
 `$ pip install django`<br/>
-`$ python manage.py runserver`
+`$ python manage.py runserver`<br/>
 ##-------------------------------------------------------------------------
 ##Or the other way:
 ## Install Docker
