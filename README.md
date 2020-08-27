@@ -16,8 +16,7 @@ Clone Git<br/>
 `$ pip install django`<br/>
 `$ python manage.py runserver`<br/>
 
-##Or the other way:
-## Install Docker
+## Or.........Install Docker
 
 Before running the server, install docker.
 
