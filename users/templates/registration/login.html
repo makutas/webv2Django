@@ -1,0 +1,18 @@
+{% extends "recipes/base.html" %}
+
+{% block content %}
+
+ {% if form.errors %}
+  <p>Your username and password didn't match.You can guess which one and try again.</p>
+ {% endif %}
+
+ <form method="POST" action="{% url 'users:login' %}">
+     {% csrf_token %}
+     {{ form.as_p }}
+
+     <button name="submit">Log in</button>
+     <input type="hidden" name="text"
+            value="{% url 'recipes:index' %}" />
+ </form>
+
+{% endblock content %}
