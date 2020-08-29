@@ -1,11 +1,13 @@
 {% extends "recipes/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
  <p>Add a new recipe:</p>
 
  <form action="{% url 'recipes:new_recipe' %}" method="POST">
      {% csrf_token %}
-     {{ form.as_p }}
+     {{ form|crispy }}
      <button name="Submit">Add recipe</button>
  </form>
 

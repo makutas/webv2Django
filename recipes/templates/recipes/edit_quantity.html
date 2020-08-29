@@ -1,5 +1,7 @@
 {% extends "recipes/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
  <p><a href="{% url 'recipes:recipe' recipe.id %}">{{ recipe }}</a></p>
@@ -7,7 +9,7 @@
  <p>Edit quantity:
  <form action="{% url 'recipes:edit_quantity' recipe.id ingredient.id %}" method="POST">
      {% csrf_token %}
-     {{ form.as_p }}
+     {{ form|crispy }}
      <button name="Submit">Save changes</button>
  </form>
 

@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     # MY APPS
     'recipes',
     'users',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,3 +129,4 @@ STATIC_URL = '/static/'
 # MY SETTINGS
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'recipes:recipes'
+LOGOUT_REDIRECT_URL = 'users:login'
