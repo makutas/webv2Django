@@ -44,9 +44,11 @@ def new_recipe(request):
         form = RecipeForm(data=request.POST)
         if form.is_valid():
             form.save()
-            new_recipe = Recipe.objects.last().id
-            redirect_url = f'http://127.0.0.1:8000/new_ingredient/{new_recipe}'
-            return redirect(redirect_url)
+            recipe = Recipe.objects.last()
+            recipe.author = request.user
+            form = IngredientForm()
+            context = {'recipe': recipe, 'form': form}
+            return render(request, 'recipes/new_ingredient.html', context)
     """Blank or invalid form"""
     context = {'form': form}
     return render(request, 'recipes/new_recipe.html', context)
@@ -67,10 +69,10 @@ def new_ingredient(request, recipe_id):
             new_ingredient_form = form.save(commit=False)
             new_ingredient_form.recipe = recipe
             new_ingredient_form.save()
-            new_recipe = Recipe.objects.last().id
-            new_ingredient = Ingredient.objects.last().id
-            redirect_url = f'http://127.0.0.1:8000/recipes/{new_recipe}/{new_ingredient}/add_quantity'
-            return redirect(redirect_url)
+            ingredient = Ingredient.objects.last().id
+            form = QuantityForm()
+            context = {'recipe': recipe, 'ingredient': ingredient, 'form': form}
+            return render(request, 'recipes/add_quantity.html', context)
     """Blank or invalid form"""
     context = {'recipe': recipe, 'form': form}
     return render(request, 'recipes/new_ingredient.html', context)
@@ -81,8 +83,6 @@ def edit_ingredient(request, ingredient_id):
     """Edit an existing ingredient"""
     ingredient = Ingredient.objects.get(id=ingredient_id)
     recipe = ingredient.recipe
-    if recipe.author != request.user:
-        raise Http404
 
     if request.method != 'POST':
         """Initial request; Pre-fill form with the current entry so the user can edit it"""
@@ -103,8 +103,6 @@ def quantity(request, recipe_id, ingredient_id):
     """Add quantity for particular recipe and ingredient"""
     recipe = Recipe.objects.get(id=recipe_id)
     ingredient = Ingredient.objects.get(id=ingredient_id)
-    if recipe.author != request.user:
-        raise Http404
 
     if request.method != 'POST':
         """Return blank form since no data is submitted - 'GET' method"""
@@ -128,8 +126,6 @@ def edit_quantity(request, recipe_id, ingredient_id):
     """Edit an existing ingredient"""
     recipe = Recipe.objects.get(id=recipe_id)
     ingredient = Ingredient.objects.get(id=ingredient_id)
-    if recipe.author != request.user:
-        raise Http404
 
     if request.method != 'POST':
         """Initial request; Pre-fill form with the current entry so the user can edit it"""
