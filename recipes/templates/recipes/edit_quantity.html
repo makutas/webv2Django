@@ -6,7 +6,7 @@
 
  <p><a href="{% url 'recipes:recipe' recipe.id %}">{{ recipe }}</a></p>
 
- <p>Edit quantity:
+ <p>Edit quantity:</p>
  <form action="{% url 'recipes:edit_quantity' recipe.id ingredient.id %}" method="POST">
      {% csrf_token %}
      {{ form|crispy }}

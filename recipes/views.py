@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import Recipe, Ingredient, Quantity
 from .forms import RecipeForm, IngredientForm, QuantityForm
-from django.http import Http404
 
 
 def index(request):
@@ -20,16 +19,10 @@ def recipes(request):
 def recipe(request, recipe_id):
     """Show a single recipe and all its ingredients"""
     recipe = Recipe.objects.get(id=recipe_id)
-    ingredients = recipe.ingredient_set.order_by('ingredient_type')
+    ingredients = recipe.ingredient_set.all()
     quantities = recipe.quantity_set.all()
-    ing_id = recipe.ingredient_set.values_list('id', flat=True)
-    ingredients_with_id = zip(ingredients, ing_id)
-    zipped = zip(ingredients_with_id, quantities)
-    for i, q in zipped:
-        print(i, q)
-        for item in i:
-            print(item)
-    context = {'recipe': recipe, 'ingredients': ingredients, 'ing_id': ing_id, 'quantity': quantities, 'zipped': zipped}
+    zipped = zip(ingredients, quantities)
+    context = {'recipe': recipe, 'ingredients': ingredients, 'quantities': quantities, 'zipped': zipped}
     return render(request, 'recipes/recipe.html', context)
 
 
@@ -126,16 +119,17 @@ def edit_quantity(request, recipe_id, ingredient_id):
     """Edit an existing ingredient"""
     recipe = Recipe.objects.get(id=recipe_id)
     ingredient = Ingredient.objects.get(id=ingredient_id)
+    quantity = get_object_or_404(Quantity, recipe_id=recipe_id, ingredient_id=ingredient_id)
 
     if request.method != 'POST':
         """Initial request; Pre-fill form with the current entry so the user can edit it"""
         form = QuantityForm(instance=quantity)
     else:
         """POST data submitted; process data"""
-        form = QuantityForm(instance=quantity, data=request.POST)
+        form = QuantityForm(request.POST, instance=quantity)
         if form.is_valid():
             form.save()
             return redirect('recipes:recipe', recipe_id=recipe.id)
 
-    context = {'recipe': recipe, 'ingredient': ingredient, 'form': form}
+    context = {'recipe': recipe,'ingredient': ingredient, 'quantity': quantity, 'form': form}
     return render(request, 'recipes/edit_quantity.html', context)
