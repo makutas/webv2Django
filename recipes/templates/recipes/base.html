@@ -2,7 +2,7 @@
     <a href="{% url 'recipes:index' %}">Home</a><br>
     <a href="{% url 'recipes:recipes' %}">Recipes</a><br>
     {% if user.is_authenticated %}
-        Hello, {{ user.username }}.
+        Hello, {{ user.username }}!
         <a href="{% url 'users:logout' %}">Log out</a>
     {% else %}
         <a href="{% url 'users:register' %}">Register</a>
