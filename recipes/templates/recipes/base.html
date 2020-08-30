@@ -1,3 +1,20 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Viva la alcoholution!</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="header">
+		<div id="site_title">Cocktail <span>website</span></div>
+		<div id="site_slogan">Where everyone has a favorite drink</div>
+	</div>
 <p>
     <a href="{% url 'recipes:index' %}">Home</a><br>
     <a href="{% url 'recipes:recipes' %}">Recipes</a><br>
@@ -9,6 +26,11 @@
         <a href="{% url 'users:login' %}">Log in</a>
     {% endif %}
 </p>
+</body>
 
 {% block content %}
 {% endblock content %}
+
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
