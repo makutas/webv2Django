@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'recipes',
     'users',
     'crispy_forms',
+    # THIRD PARTY APPS
+    'bootstrap4',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
