@@ -20,5 +20,5 @@ urlpatterns = [
     # PAGE FOR ADDING QUANTITY
     path('recipes/<int:recipe_id>/<int:ingredient_id>/add_quantity', views.quantity, name='add_quantity'),
     # PAGE FOR EDITING QUANTITY
-    path('recipes/<int:recipe_id>/<int:ingredient_id>/edit_quantity', views.quantity, name='edit_quantity'),
+    path('recipes/<int:recipe_id>/<int:ingredient_id>/edit_quantity', views.edit_quantity, name='edit_quantity'),
 ]

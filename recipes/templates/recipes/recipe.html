@@ -6,14 +6,14 @@
 
  <p>Ingredients:</p>
   <ul>
-   {% for ingredient in ingredients %}
-    <li>
-     {{ ingredient }}
-      <p>
-       <a href="{% url 'recipes:edit_ingredient' ingredient.id %}">Edit ingredient</a><br>
-       <a href="{% url 'recipes:edit_quantity' recipe.id ingredient.id %}">Edit quantity</a>
-      </p>
-    </li>
+   {% for i , q in zipped %}
+    {{ i.name }} | {{ q.ml_oz }}
+     <li>
+       <p>
+        <a href="{% url 'recipes:edit_ingredient' i.id %}">Edit ingredient</a><br>
+        <a href="{% url 'recipes:edit_quantity' recipe.id i.id %}">Edit quantity</a>
+       </p>
+     </li>
    {% endfor %}
   </ul>
  <p>
