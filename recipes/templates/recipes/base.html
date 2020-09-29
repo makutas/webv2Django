@@ -1,44 +1,56 @@
 <!DOCTYPE html>
+{% load bootstrap4 %}
 <html lang="en">
 
 <head>
-    {% load bootstrap4 %}
-    {% load static %}
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Viva la alcoholution!
+    </title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
 </head>
 
 <body>
-<div>
-    <img class="responsive-img" src="{% static 'images/banner.gif' %}">
-</div>
-<div>
-  <nav>
-    <div class="nav-wrapper light-green">
-      <a href="{% url 'recipes:recipes' %}" class="brand-logo">Recipes</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="{% url 'recipes:index' %}">Home</a></li>
-          {% if user.is_authenticated %}
-            Hello, {{ user.username }}!
-            <li><a href="{% url 'users:logout' %}">Log out</a></li>
-          {% else %}
-            <li><a href="{% url 'users:register' %}">Register</a></li>
-            <li><a href="{% url 'users:login' %}">Log in</a></li>
-          {% endif %}
-      </ul>
-    </div>
-  </nav>
-</div>
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 border">
+        
+        <a class="navbar-brand" href="{% url 'recipes:recipes' %}">Recipes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+            </span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'recipes:index' %}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="navbar-text">Hello, {{ user.username }}.</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        
+</nav>
+
 </body>
 
 {% block content %}
 {% endblock content %}
-
-
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
 </html>
