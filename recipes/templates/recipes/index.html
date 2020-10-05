@@ -1,9 +1,22 @@
 {% extends "recipes/base.html" %}
 
+{% block page_header %}
+    <div class="jumbotron">
+        <h1 class="display-4">
+            Welcome to your favorite cocktail site!
+        </h1>
+        <p class="lead">
+            Here you will be able to register as a user, add, update and check out number of cocktail recipes!
+        </p>
+
+        <p class="lead">
+            Viva la alcoholution!
+        </p>
+        <a class="btn btn-lg btn-outline-dark" href="{% url 'users:register' %}" role="button">
+            Register &raquo;
+        </a>
+    </div>
+{% endblock page_header %}
 {% block content %}
-<p>The soon to be cocktail recipe site</p>
-
-<p>Here you will be able to register as a user, add, update and check out number of cocktail recipes!</p>
-
-<p>Viva la alcoholution!</p>
+<img src="https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1440,w_2560,x_0,y_0/dpr_1.5/c_limit,w_1044/fl_lossy,q_auto/v1517521303/180131-wondrich-bad-cocktail-tease_wghhv8" style="width:100%;">
 {% endblock content %}
