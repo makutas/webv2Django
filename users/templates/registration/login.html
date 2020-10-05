@@ -1,17 +1,25 @@
 {% extends "recipes/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h1 class="display-4">
+        Log in to your account.
+    </h1>
+{% endblock page_header %}
 
 {% block content %}
+<!--DJANGO BOOTSTRAP MANAGES FORM ERRORS AUTOMATICALLY-->
+<!--    {% if form.errors %}-->
+<!--        <p>Your username and password didn't match. You can guess which one and try again.</p>-->
+<!--    {% endif %}-->
 
- {% if form.errors %}
-  <p>Your username and password didn't match.You can guess which one and try again.</p>
- {% endif %}
-
- <form method="POST" action="{% url 'users:login' %}">
-     {% csrf_token %}
-     {{ form.as_p }}
-
-     <button name="submit">Log in</button>
-     <input type="hidden" name="text" value="{% url 'recipes:index' %}" />
- </form>
+    <form method="POST" action="{% url 'users:login' %}" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button name="submit" class="btn btn-lg btn-outline-dark">Log in</button>
+        {% endbuttons %}
+        <input type="hidden" name="text" value="{% url 'recipes:index' %}" />
+    </form>
 
 {% endblock content %}
