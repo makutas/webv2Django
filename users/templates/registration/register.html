@@ -1,13 +1,21 @@
-{% extends "recipes/base.html"  %}
+{% extends "recipes/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h1 class="display-4">
+        Create account:
+    </h1>
+{% endblock page_header %}
 
 {% block content %}
 
-    <form method="POST" action="{% url 'users:register' %}">
-        {% csrf_token  %}
-        {{ form.as_p }}
+<form method="POST" action="{% url 'users:register' %}" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+     <button name="submit" class="btn btn-lg btn-outline-dark">Register</button>
+    {% endbuttons %}
+    <input type="hidden" name="next" value="{% url 'recipes:index' %}"/>
+</form>
 
-        <button name="submit">Register</button>
-        <input type="hidden" name="next" value="{% url 'recipes:index' %}"/>
-    </form>
-
-{%  endblock content %}
+{% endblock content %}
