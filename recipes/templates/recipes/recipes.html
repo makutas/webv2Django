@@ -1,18 +1,32 @@
 {% extends "recipes/base.html" %}
 
+{% block page_header %}
+    <h1 class="display-4">
+        Recipes:
+    </h1>
+{% endblock page_header %}
+
 {% block content %}
 
- <p>Recipes:</p>
+{% for recipe in recipes %}
+<div class="row row-cols-3 row-cols-md-2">
+    <div class="col">
+        <div class="card mb-2" style="width: 18rem;">
+            <img src="https://i.pinimg.com/originals/3f/97/b3/3f97b30892916d3ef91618529f48f0a4.jpg" class="card-img-top" alt="Cocktail picture here">
+                <div class="card-body">
+                    <a class=" card-title btn btn-lg btn-outline-dark" href="{% url 'recipes:recipe' recipe.id %}">
+                        {{ recipe }}
+                    </a>
+                    <p class="card-text">{{ recipe.description }}.</p>
+                </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+    <li>
+        No recipes have been added yet.
+    </li>
+{% endfor %}
 
- <ul>
-     {% for recipe in recipes %}
-      <li>
-          <a href="{% url 'recipes:recipe' recipe.id %}"> {{ recipe }}</a>
-      </li>
-     {% empty %}
-      <li>No recipes have been added yet.</li>
-     {% endfor %}
- </ul>
- <a href="{% url 'recipes:new_recipe' %}">Add a new recipe</a>
-
+<a href="{% url 'recipes:new_recipe' %}" class="btn btn-lg btn-outline-dark" >Add a new recipe</a>
 {% endblock content %}
