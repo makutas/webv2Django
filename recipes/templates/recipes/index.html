@@ -1,7 +1,7 @@
 {% extends "recipes/base.html" %}
 
 {% block page_header %}
-    <div class="jumbotron">
+    <div class="jumbotron mb-1" style="height: 290px;">
         <h1 class="display-4">
             Welcome to your favorite cocktail site!
         </h1>
@@ -17,6 +17,9 @@
         </a>
     </div>
 {% endblock page_header %}
+
 {% block content %}
-<img src="https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1440,w_2560,x_0,y_0/dpr_1.5/c_limit,w_1044/fl_lossy,q_auto/v1517521303/180131-wondrich-bad-cocktail-tease_wghhv8" style="width:100%;">
+<div class="card mb-1">
+    <img class="card-img-top" style="height: 550px;" src="https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1440,w_2560,x_0,y_0/dpr_1.5/c_limit,w_1044/fl_lossy,q_auto/v1517521303/180131-wondrich-bad-cocktail-tease_wghhv8" alt="Background image missing.">
+</div>
 {% endblock content %}
