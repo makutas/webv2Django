@@ -8,10 +8,11 @@
 
 {% block content %}
 
+<div class="card-deck">
 {% for recipe in recipes %}
-<div class="row row-cols-3 row-cols-md-2">
+<div class="row row-cols-4">
     <div class="col">
-        <div class="card mb-2" style="width: 18rem;">
+        <div class="card mb-2" style="width: 16rem;">
             <img src="https://i.pinimg.com/originals/3f/97/b3/3f97b30892916d3ef91618529f48f0a4.jpg" class="card-img-top" alt="Cocktail picture here">
                 <div class="card-body">
                     <a class=" card-title btn btn-lg btn-outline-dark" href="{% url 'recipes:recipe' recipe.id %}">
@@ -22,11 +23,12 @@
         </div>
     </div>
 </div>
+
 {% empty %}
     <li>
         No recipes have been added yet.
     </li>
 {% endfor %}
-
+</div>
 <a href="{% url 'recipes:new_recipe' %}" class="btn btn-lg btn-outline-dark" >Add a new recipe</a>
 {% endblock content %}
