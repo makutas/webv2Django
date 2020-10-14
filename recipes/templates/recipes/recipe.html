@@ -1,23 +1,31 @@
 {% extends "recipes/base.html" %}
 
+{% block page_header %}
+
+    <h1 class="display-4 mb-1">
+        {{ recipe }}:
+    </h1>
+{% endblock page_header %}
+
 {% block content %}
 
- <p>Recipe: {{ recipe }}</p>
-
- <p>Ingredients:</p>
-  <ul>
-   {% for i , q in zipped %}
-    {{ i.name }} | {{ q.ml_oz }}
-     <li>
-       <p>
-        <a href="{% url 'recipes:edit_ingredient' i.id %}">Edit ingredient</a><br>
-        <a href="{% url 'recipes:edit_quantity' recipe.id i.id %}">Edit quantity</a>
-       </p>
-     </li>
-   {% endfor %}
-  </ul>
- <p>
-  <a href="{% url 'recipes:new_ingredient' recipe.id %}">Add new ingredient</a>
- </p>
+<div>
+	<img class="card-group mb-2" src="https://i.pinimg.com/originals/3f/97/b3/3f97b30892916d3ef91618529f48f0a4.jpg" style="height:200px; width=80px;" alt="Cocktail picture here">
+	<ul class="list-group list-group-flush mb-2 pb-1">
+		{% for i , q in zipped %}
+		{{ q.ml_oz }} ml of {{ i.name }}
+			<li style="list-style-type: none;">
+				<p>
+					<a href="{% url 'recipes:edit_ingredient' i.id %}">Edit ingredient</a><br>
+					<a href="{% url 'recipes:edit_quantity' recipe.id i.id %}">Edit quantity</a>
+				</p>
+			</li>
+		{% endfor %}
+	</ul>
+	
+  <a href="{% url 'recipes:new_ingredient' recipe.id %}" class="btn btn-lg btn-outline-dark">Add new ingredient</a>
+	
+</div>
 
 {% endblock content %}
+
