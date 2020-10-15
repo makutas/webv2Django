@@ -48,6 +48,24 @@ def new_recipe(request):
 
 
 @login_required
+def edit_recipe(request, recipe_id):
+    recipe = Recipe.object.get(id=recipe_id)
+
+    if request.method != 'POST':
+        """Initial request; Pre-fill form with the current entry so the user can edit it"""
+        form = RecipeForm()
+    else:
+        """POST data submitted; process data"""
+        form = RecipeForm(data=request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            return redirect('recipes:recipe', recipe_id=recipe.id)
+
+    context = {'recipe': recipe, 'form': form}
+    return render(request, 'recipes/edit_recipe.html', context)
+
+
+@login_required
 def new_ingredient(request, recipe_id):
     """Add a new ingredient for particular recipe"""
     recipe = Recipe.objects.get(id=recipe_id)
@@ -131,5 +149,5 @@ def edit_quantity(request, recipe_id, ingredient_id):
             form.save()
             return redirect('recipes:recipe', recipe_id=recipe.id)
 
-    context = {'recipe': recipe,'ingredient': ingredient, 'quantity': quantity, 'form': form}
+    context = {'recipe': recipe, 'ingredient': ingredient, 'quantity': quantity, 'form': form}
     return render(request, 'recipes/edit_quantity.html', context)
