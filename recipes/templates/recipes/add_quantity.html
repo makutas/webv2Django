@@ -10,7 +10,7 @@
  <form action="{% url 'recipes:add_quantity' recipe.id ingredient %}" method="POST">
      {% csrf_token %}
      {{ form|crispy }}
-     <button name="Submit">Add quantity</button>
+     <button name="Submit" class="btn btn-lg btn-outline-dark">Add quantity</button>
  </form>
 
 {% endblock content %}

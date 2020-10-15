@@ -13,11 +13,18 @@
 	<img class="card-group mb-2" src="https://i.pinimg.com/originals/3f/97/b3/3f97b30892916d3ef91618529f48f0a4.jpg" style="height:200px; width=80px;" alt="Cocktail picture here">
 	<ul class="list-group list-group-flush mb-2 pb-1">
 		{% for i , q in zipped %}
-		{{ q.ml_oz }} ml of {{ i.name }}<br>
+		{{ q.ml_oz }} ml of {{ i.name }}
+			<li style="list-style-type: none;">
+				<p>
+					<a href="{% url 'recipes:edit_ingredient' i.id %}">Edit ingredient</a><br>
+					<a href="{% url 'recipes:edit_quantity' recipe.id i.id %}">Edit quantity</a>
+				</p>
+			</li>
 		{% endfor %}
 	</ul>
-	<a href="{% url 'recipes:edit_recipe' recipe.id %}" class="btn btn-lg btn-outline-dark">Edit recipe</a>
+	
+  <a href="{% url 'recipes:new_ingredient' recipe.id %}" class="btn btn-lg btn-outline-dark">Add new ingredient</a>
+	
 </div>
 
 {% endblock content %}
-

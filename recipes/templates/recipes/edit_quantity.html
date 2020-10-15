@@ -4,13 +4,13 @@
 
 {% block content %}
 
- <p><a href="{% url 'recipes:recipe' recipe.id %}">{{ recipe }}</a></p>
+<p><a href="{% url 'recipes:recipe' recipe.id %}">{{ recipe }}</a></p>
 
- <p>Edit quantity:</p>
- <form action="{% url 'recipes:edit_quantity' recipe.id ingredient.id %}" method="POST">
-     {% csrf_token %}
-     {{ form|crispy }}
-     <button name="Submit">Save changes</button>
- </form>
+<p>Edit quantity:</p>
+<form action="{% url 'recipes:edit_quantity' recipe.id ingredient.id %}" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button name="Submit" class="btn btn-lg btn-outline-dark">Save changes</button>
+</form>
 
 {% endblock content %}

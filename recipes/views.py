@@ -49,10 +49,12 @@ def new_recipe(request):
 
 @login_required
 def edit_recipe(request, recipe_id):
-    recipe = Recipe.object.get(id=recipe_id)
-
+    recipe = Recipe.objects.get(id=recipe_id)
+    ingredients = recipe.ingredient_set.all()
+    quantities = recipe.quantity_set.all()
+    zipped = zip(ingredients, quantities)
     if request.method != 'POST':
-        """Initial request; Pre-fill form with the current entry so the user can edit it"""
+        """Return blank form since no data is submitted - 'GET' method"""
         form = RecipeForm()
     else:
         """POST data submitted; process data"""
@@ -61,7 +63,7 @@ def edit_recipe(request, recipe_id):
             form.save(commit=False)
             return redirect('recipes:recipe', recipe_id=recipe.id)
 
-    context = {'recipe': recipe, 'form': form}
+    context = {'recipe': recipe, 'ingredients': ingredients, 'quantities': quantities, 'zipped': zipped}
     return render(request, 'recipes/edit_recipe.html', context)
 
 
