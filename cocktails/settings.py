@@ -25,7 +25,7 @@ SECRET_KEY = '^63rvzbz^=i8$l$_-y9l+3ky+vj)+-)d67mi7d(j3k&i+9osmw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['jzng.l.dedikuoti.lt']
 
 
 # Application definition
