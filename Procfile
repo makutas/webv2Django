@@ -1,1 +1,1 @@
-web: gunicorn webv2Django/cocktails.wsgi
+web: gunicorn cocktails.wsgi
