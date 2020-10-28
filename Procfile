@@ -1,0 +1,1 @@
+web: gunicorn webv2Django.wsgi
